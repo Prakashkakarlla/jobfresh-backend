@@ -8,12 +8,10 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * Cache configuration for the application
- * Uses in-memory ConcurrentMapCacheManager for simplicity
+ * Uses in-memory ConcurrentMapCacheManager
  * 
- * For production with multiple instances, consider:
- * - Redis (recommended)
- * - Hazelcast
- * - EhCache
+ * Note: Redis can be enabled by adding spring-boot-starter-data-redis
+ * and setting spring.cache.type=redis in application.properties
  */
 @Configuration
 @EnableCaching
@@ -22,11 +20,10 @@ public class CacheConfig {
     @Bean
     public CacheManager cacheManager() {
         return new ConcurrentMapCacheManager(
-                "jobList", // Job listings cache (by category + page)
-                "jobDetails", // Individual job details (by slug)
-                "blogList", // Blog post listings (by tag + page)
-                "blogDetails", // Individual blog posts (by slug)
-                "pages" // Static pages (by slug)
-        );
+                "jobList",
+                "jobDetails",
+                "blogList",
+                "blogDetails",
+                "pages");
     }
 }
